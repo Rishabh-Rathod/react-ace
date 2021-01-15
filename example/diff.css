@@ -3,3 +3,15 @@
   position: absolute;
   z-index: 20;
 }
+
+.deleteCodeMarker {
+  background: rgb(250, 157, 157);
+  position: absolute;
+  z-index: 20;
+}
+
+.insertCodeMarker {
+  background: rgb(158, 248, 158);
+  position: absolute;
+  z-index: 20;
+}

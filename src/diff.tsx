@@ -168,7 +168,6 @@ export default class DiffComponent extends React.Component<
       left: 1,
       right: 1
     };
-
     diff.forEach((chunk: any) => {
       const chunkType = chunk[0];
       const text = chunk[1];
@@ -213,7 +212,8 @@ export default class DiffComponent extends React.Component<
 
           diffedLines.left.push({
             startLine: cursor.left,
-            endLine: cursor.left + linesToHighlight
+            endLine: cursor.left + linesToHighlight,
+            action: "delete"
           });
 
           cursor.left += lines;
@@ -242,7 +242,8 @@ export default class DiffComponent extends React.Component<
 
           diffedLines.right.push({
             startLine: cursor.right,
-            endLine: cursor.right + linesToHighlight
+            endLine: cursor.right + linesToHighlight,
+            action: "insert"
           });
 
           cursor.right += lines;
@@ -258,7 +259,6 @@ export default class DiffComponent extends React.Component<
   // Returns an object that tells the render() method how to display the code editors
   public setCodeMarkers(diffedLines: any = { left: [], right: [] }) {
     const codeEditorSettings = [];
-
     const newMarkerSet = {
       left: [] as any[],
       right: [] as any[]
@@ -269,7 +269,9 @@ export default class DiffComponent extends React.Component<
         startRow: diffedLines.left[i].startLine - 1,
         endRow: diffedLines.left[i].endLine,
         type: "text",
-        className: "codeMarker"
+        className: diffedLines.left[i].action
+          ? diffedLines.left[i].action + "CodeMarker"
+          : "codeMarker"
       };
       newMarkerSet.left.push(markerObj);
     }
@@ -279,7 +281,9 @@ export default class DiffComponent extends React.Component<
         startRow: diffedLines.right[i].startLine - 1,
         endRow: diffedLines.right[i].endLine,
         type: "text",
-        className: "codeMarker"
+        className: diffedLines.right[i].action
+          ? diffedLines.right[i].action + "CodeMarker"
+          : "codeMarker"
       };
       newMarkerSet.right.push(markerObj);
     }
