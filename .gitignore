@@ -38,7 +38,7 @@ node_modules
 .vscode
 
 # Babel Build
-lib
+# lib
 
 # UMD Build
 dist
